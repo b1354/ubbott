@@ -1,0 +1,3 @@
+bot_name: ubott_
+bot_username: ubay123_bot
+token: 5376215991:AAFoo9x9frLS1_zrqJJaqKR_6eFX_1SgOHc
