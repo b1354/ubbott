@@ -6,14 +6,17 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 const command = require('./lib/command')
 const botHelp = require('./lib/botHelp')
 const indahHandler = require('./lib/indahHandler');
+const serverInfo = require('./lib/serverInfo')
 
-bot.start( ctx => ctx.reply('Selamat datang ges, nama w ubay'))
+bot.start( ctx => ctx.reply('Selamat datang ges, welcome to ubott_'))
 
 bot.use(botHelp)
+bot.use(indahHandler)
 bot.use(command.sayhi)
 bot.use(command.whoami)
-bot.use(indahHandler)
 bot.use(command.waifu)
+
+bot.command('server', serverInfo)
 
 bot.on('sticker', (ctx) => {
   ctx.reply('hi maniezz')
