@@ -1,22 +1,31 @@
 require('dotenv').config()
 
-const {Telegraf} = require('telegraf');
+const {Telegraf} = require('telegraf')
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 const command = require('./lib/command')
 const botHelp = require('./lib/botHelp')
 const indahHandler = require('./lib/indahHandler');
 const serverInfo = require('./lib/serverInfo')
+const cat = require('./lib/cat')
+const quranAPI = require('./lib/quran')
 
-bot.start( ctx => ctx.reply('Selamat datang ges, welcome to ubott_'))
+bot.start( ctx => ctx.reply('welcome to ubott_'))
+bot.help(botHelp)
 
-bot.use(botHelp)
+bot.hears('oy', (ctx) => {
+  ctx.reply('oyy, apa bang?')
+})
+
 bot.use(indahHandler)
 bot.use(command.sayhi)
 bot.use(command.whoami)
-bot.use(command.waifu)
 
+
+bot.command('quran', quranAPI.quran)
 bot.command('server', serverInfo)
+bot.command('replyme', command.replyMe)
+bot.command('miaw', cat)
 
 bot.on('sticker', (ctx) => {
   ctx.reply('hi maniezz')
@@ -57,6 +66,14 @@ bot.command('waifu', (ctx) => {
       type: "photo"
     }])
   })
+})
+
+bot.action('indah', (ctx) => {
+  ctx.deleteMessage()
+  let uname = ctx.from.username.toLowerCase()
+  if (uname != 'codename_utsukushii'){
+    ctx.reply('maaf gabisa, indah mah cuman punya bayu 😅')
+  } else ctx.reply("waifu kamu @indahsknhh (gaada foto karena yang punyanya ga dikasi pap")
 })
 
 bot.launch()
