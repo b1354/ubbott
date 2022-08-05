@@ -1,6 +1,4 @@
 require('dotenv').config()
-
-const http = require('http')
 const PORT = process.env.port || 3000
 
 const {Telegraf} = require('telegraf')
@@ -79,9 +77,10 @@ bot.action('indah', (ctx) => {
   } else ctx.reply("waifu kamu @indahsknhh (gaada foto karena yang punyanya ga dikasi pap")
 })
 
-bot.launch()
+bot.launch({
+  webhook: {
+    domain: `https://api.telegram.org/bot<token>/${process.env.BOT_TOKEN}`,
+    port: PORT
+  }
+})
 console.log('bot running')
-
-http.createServer((request, response) => {
-  response.end('telebot: ubbot')
-}).listen(PORT)
