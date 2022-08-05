@@ -1,5 +1,8 @@
 require('dotenv').config()
-const PORT = process.env.port || 3000
+
+const express = require('express')
+const port = process.env.PORT || 3000
+const expressApp = express()
 
 const {Telegraf} = require('telegraf')
 const bot = new Telegraf(process.env.BOT_TOKEN)
@@ -10,6 +13,13 @@ const indahHandler = require('./lib/indahHandler');
 const serverInfo = require('./lib/serverInfo')
 const cat = require('./lib/cat')
 const quranAPI = require('./lib/quran')
+
+expressApp.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+expressApp.listen(port, () => {
+  console.log(`Listening on port ${port}`)
+})
 
 bot.start( ctx => ctx.reply('welcome to ubott_'))
 bot.help(botHelp)
@@ -77,10 +87,5 @@ bot.action('indah', (ctx) => {
   } else ctx.reply("waifu kamu @indahsknhh (gaada foto karena yang punyanya ga dikasi pap")
 })
 
-bot.launch({
-  webhook: {
-    domain: 'https://protected-reef-71990.herokuapp.com/',
-    port: PORT
-  }
-})
+bot.launch()
 console.log('bot running')
