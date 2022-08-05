@@ -79,7 +79,7 @@ bot.action('indah', (ctx) => {
 
 bot.launch({
   webhook: {
-    domain: `https://api.telegram.org/bot<token>/${process.env.BOT_TOKEN}`,
+    domain: 'https://protected-reef-71990.herokuapp.com/',
     port: PORT
   }
 })
