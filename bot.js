@@ -1,5 +1,8 @@
 require('dotenv').config()
 
+const http = require('http')
+const PORT = process.env.port || 3000
+
 const {Telegraf} = require('telegraf')
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
@@ -78,3 +81,7 @@ bot.action('indah', (ctx) => {
 
 bot.launch()
 console.log('bot running')
+
+http.createServer((request, response) => {
+  response.end('telebot: ubbot')
+}).listen(PORT)
